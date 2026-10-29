@@ -4,7 +4,7 @@ Student: Akbota Zhanserikkyzy
 Student ID: 37106
 Group: IT2-2308
 
-DevOps midterm project: Spring Boot CRUD API, PostgreSQL, Docker, Jenkins.
+Main branch: DevOps midterm project of Akbota Zhanserikkyzy (Spring Boot, PostgreSQL, Docker, Jenkins).
 
 ## Change on branch feature/zhanserikkyzy-akbota-crud
 
