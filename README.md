@@ -15,3 +15,10 @@ Author: Akbota Zhanserikkyzy
 - Added PUT /students/{id}: updates an existing student and returns
   404 if the student does not exist.
 - Added unit tests for all operations.
+
+## Change on branch feature/zhanserikkyzy-akbota-delete
+
+Author: Akbota Zhanserikkyzy
+
+- Added DELETE /students/{id}: deletes a student and returns 204 No Content,
+  or 404 if the student does not exist.
