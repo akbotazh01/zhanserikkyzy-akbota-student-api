@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -68,6 +70,30 @@ class StudentControllerTest {
         when(repository.findById(99L)).thenReturn(Optional.empty());
 
         assertThrows(StudentNotFoundException.class, () -> controller.findOne(99L));
+    }
+
+    @Test
+    void updateChangesAllFieldsOfExistingStudent() {
+        Student existing = sample();
+        existing.setId(1L);
+        when(repository.findById(1L)).thenReturn(Optional.of(existing));
+        when(repository.save(any(Student.class))).thenAnswer(inv -> inv.getArgument(0));
+
+        Student changes = new Student("Akbota Zhanserikkyzy", "IT2-2309", "37106",
+                "new.email@example.com");
+        Student result = controller.update(1L, changes);
+
+        assertEquals(1L, result.getId());
+        assertEquals("IT2-2309", result.getGroupName());
+        assertEquals("new.email@example.com", result.getEmail());
+    }
+
+    @Test
+    void updateThrowsWhenStudentDoesNotExist() {
+        when(repository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(StudentNotFoundException.class, () -> controller.update(99L, sample()));
+        verify(repository, never()).save(any(Student.class));
     }
 
     @Test

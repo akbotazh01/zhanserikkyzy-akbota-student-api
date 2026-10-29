@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,5 +39,15 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student findOne(@PathVariable Long id) {
         return repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
+    }
+
+    @PutMapping("/{id}")
+    public Student update(@PathVariable Long id, @Valid @RequestBody Student changes) {
+        Student existing = repository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
+        existing.setFullName(changes.getFullName());
+        existing.setGroupName(changes.getGroupName());
+        existing.setStudentId(changes.getStudentId());
+        existing.setEmail(changes.getEmail());
+        return repository.save(existing);
     }
 }
