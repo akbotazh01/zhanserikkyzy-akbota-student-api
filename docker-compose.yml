@@ -22,7 +22,7 @@ services:
 
   app:
     build: .
-    image: zhanserikkyzy-akbota-student-api:1.0-37106
+    image: zhanserikkyzy-akbota-student-api:1.1-37106
     container_name: zhanserikkyzy-akbota-container
     depends_on:
       db:
