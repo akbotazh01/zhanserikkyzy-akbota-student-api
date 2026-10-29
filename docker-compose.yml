@@ -1,0 +1,44 @@
+name: zhanserikkyzy-akbota-student-api
+
+services:
+  db:
+    image: postgres:17
+    container_name: zhanserikkyzy-akbota-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-studentdb}
+      POSTGRES_USER: ${POSTGRES_USER:-student}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - studentnet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    restart: unless-stopped
+
+  app:
+    build: .
+    image: zhanserikkyzy-akbota-student-api:1.0-37106
+    container_name: zhanserikkyzy-akbota-container
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${POSTGRES_DB:-studentdb}
+      DB_USER: ${POSTGRES_USER:-student}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "8080:8080"
+    networks:
+      - studentnet
+    restart: unless-stopped
+
+networks:
+  studentnet:
+
+volumes:
+  pgdata:
