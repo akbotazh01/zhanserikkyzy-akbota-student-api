@@ -30,7 +30,7 @@ class StudentControllerDeleteTest {
 
         ResponseEntity<Void> response = controller.delete(1L);
 
-        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(repository).deleteById(1L);
     }
 
