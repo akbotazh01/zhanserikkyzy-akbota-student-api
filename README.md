@@ -22,3 +22,5 @@ Author: Akbota Zhanserikkyzy
 
 - Added DELETE /students/{id}: deletes a student and returns 204 No Content,
   or 404 if the student does not exist.
+
+Automatic build trigger verified by Akbota Zhanserikkyzy via Jenkins SCM polling.
