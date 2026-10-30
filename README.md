@@ -25,3 +25,4 @@ Author: Akbota Zhanserikkyzy
 
 Automatic build trigger verified by Akbota Zhanserikkyzy via Jenkins SCM polling.
 Second polling check by Akbota Zhanserikkyzy.
+Second polling check by Akbota Zhanserikkyzy.
